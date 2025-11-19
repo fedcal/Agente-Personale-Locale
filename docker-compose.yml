@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  ares-api:
+    build: .
+    container_name: ares_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./persist:/app/persist
+      - /home/federico/projects:/data/projects:ro
+    environment:
+      - OLLAMA_URL=http://host.docker.internal:11434
+  telegram:
+    image: python:3.11
+    depends_on:
+      - ares-api
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: python -m telegram_bot.bot
+    environment:
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - AGENT_API=http://ares_api:8000/chat
