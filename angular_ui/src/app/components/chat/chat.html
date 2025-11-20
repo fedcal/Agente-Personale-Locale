@@ -1,0 +1,7 @@
+<div class="messages">
+  <div *ngFor="let msg of messages" [class.user]="msg.role === 'user'">
+    <b>{{ msg.role === 'user' ? 'Tu' : 'Agente' }}:</b> {{ msg.text }}
+  </div>
+</div>
+<input [(ngModel)]="userInput" placeholder="Scrivi un messaggio..." />
+<button (click)="onSend()">Invia</button>

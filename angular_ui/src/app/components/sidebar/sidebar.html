@@ -1,0 +1,6 @@
+<h3>Modelli</h3>
+<button *ngFor="let model of models"
+        (click)="selectModel(model)"
+        [class.active]="model === selectedModel">
+  {{ model }}
+</button>

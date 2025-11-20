@@ -1,0 +1,57 @@
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  height: 100vh;
+  background: #f7f7f7;
+}
+
+.sidebar, .tools {
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tools {
+  border-left: 1px solid #ddd;
+  border-right: none;
+}
+
+.sidebar button {
+  display: block;
+  margin-bottom: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+.sidebar button.active {
+  background-color: #dce6ff;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.messages .user {
+  background-color: #d9eaff;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 2px 0;
+}
+
+input {
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+button {
+  padding: 5px 10px;
+}

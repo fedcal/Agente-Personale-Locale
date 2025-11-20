@@ -1,0 +1,8 @@
+<div class="model-selector">
+  <label>Seleziona modello:</label>
+  <div *ngFor="let model of models" class="model-button">
+    <button (click)="selectModel(model)" [class.active]="model === selectedModel">
+      {{ model }}
+    </button>
+  </div>
+</div>

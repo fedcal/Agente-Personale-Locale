@@ -25,3 +25,4 @@ Modelli ollama:
 
 ollama pull qwen2.5-coder
 ollama pull llama3.1
+ollama pull nomic-embed-text
