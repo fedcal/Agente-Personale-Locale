@@ -1,9 +1,13 @@
 button {
   display: block;
   width: 100%;
-  margin-bottom: 5px;
-  padding: 5px;
+  padding: 6px;
+  margin-bottom: 4px;
+  border: 1px solid #ccc;
+  background-color: #fafafa;
+  cursor: pointer;
 }
 button.active {
   background-color: #dce6ff;
+  border-color: #7a9eff;
 }

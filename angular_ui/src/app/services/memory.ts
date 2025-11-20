@@ -1,24 +1,17 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Message } from '../core/agent';
 
-export interface Message {
-  role: 'user' | 'assistant';
-  text: string;
-}
-
-
-@Injectable({
-  providedIn: 'root',
-})
-export class Memory {
+@Injectable({ providedIn: 'root' })
+export class MemoryPlus {
   private history: Message[] = [];
 
-  storeMessage(userMessage: Message, agentResponse: Message) {
-    this.history.push(userMessage);
-    this.history.push(agentResponse);
+  storeMessage(userMessage: string, assistantMessage: string) {
+    this.history.push({ role: 'user', text: userMessage });
+    this.history.push({ role: 'assistant', text: assistantMessage });
   }
 
   getHistory(): Message[] {
-    return this.history;
+    return [...this.history];
   }
 
   clearHistory() {

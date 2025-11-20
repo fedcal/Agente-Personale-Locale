@@ -1,45 +1,49 @@
 import { Component, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { Ollama } from './services/ollama';
-import { Memory } from './services/memory';
+import { Agent } from './core/agent';
 import { Sidebar } from './components/sidebar/sidebar';
 import { Chat } from './components/chat/chat';
 import { ModelSelector } from './components/model-selector/model-selector';
-import { AgentUi } from './components/agent-ui/agent-ui';
-import {RouterOutlet} from '@angular/router';
+import { AgentUi} from './components/agent-ui/agent-ui';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    Sidebar,
+    Chat,
+    ModelSelector,
+    AgentUi
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
-  private ollama = inject(Ollama);
-  private memory = inject(Memory);
+  private agent = inject(Agent);
 
-  models = ['llama3', 'mistral', 'codellama'];
-  selectedModel = 'llama3';
-  userInput = '';
-  messages: { role: string; text: string }[] = [];
-  temperature = 0.7;
+  allModels = ['llama3', 'mistral', 'codellama'];
 
-  selectModel(model: string) {
-    this.selectedModel = model;
+  get messages() {
+    return this.agent.messages();
   }
 
-  async send() {
-    if (!this.userInput.trim()) return;
+  get selectedModel() {
+    return this.agent.selectedModel();
+  }
 
-    this.messages.push({ role: 'user', text: this.userInput });
+  get temperature() {
+    return this.agent.temperature();
+  }
 
-    const response = await this.ollama.ask(this.selectedModel, this.userInput);
-    this.memory.storeMessage(this.userInput, response);
+  sendMessage(userInput: string) {
+    this.agent.sendMessage(userInput);
+  }
 
-    this.messages.push({ role: 'assistant', text: response });
-    this.userInput = '';
+  selectModel(model: string) {
+    this.agent.selectModel(model);
   }
 }

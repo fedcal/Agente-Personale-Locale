@@ -3,17 +3,17 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-model-selector',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './model-selector.html',
-  styleUrl: './model-selector.css',
+  styleUrls: ['./model-selector.css']
 })
 export class ModelSelector {
   @Input() models: string[] = [];
-  @Input() selectedModel: string = '';
-  @Input() onSelect!: (model: string) => void;
+  @Input() selectedModel = '';
+  @Input() onSelectModel!: (model: string) => void;
 
-  selectModel(model: string) {
-    this.onSelect?.(model);
+  select(model: string) {
+    this.onSelectModel(model);
   }
-
 }

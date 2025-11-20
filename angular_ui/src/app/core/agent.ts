@@ -1,53 +1,44 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, WritableSignal, signal } from '@angular/core';
 import { Ollama } from '../services/ollama';
-import { Memory } from '../services/memory';
+import { MemoryPlus } from '../services/memory';
 
 export interface Message {
   role: 'user' | 'assistant';
   text: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class Agent {
   private ollama = inject(Ollama);
-  private memory = inject(Memory);
+  private memory = inject(MemoryPlus);
 
-  messages: Message[] = [];
-  selectedModel: string = 'llama3';
-  temperature: number = 0.7;
+  messages: WritableSignal<Message[]> = signal(this.memory.getHistory());
+  selectedModel: WritableSignal<string> = signal('llama3');
+  temperature: WritableSignal<number> = signal(0.7);
 
-  constructor() {
-    // eventualmente inizializza la memoria con conversazioni precedenti
-    this.messages = this.memory.getHistory();
-  }
+  constructor() {}
 
   selectModel(model: string) {
-    this.selectedModel = model;
+    this.selectedModel.set(model);
   }
 
-  async sendMessage(userText: Message): Promise<Message> {
-    if (!userText.text.trim()) throw new Error('Messaggio vuoto');
+  async sendMessage(userText: string) {
+    const text = userText.trim();
+    if (!text) return;
 
-    this.messages.push(userText);
+    const newUserMsg: Message = { role: 'user', text };
+    this.messages.update(msgs => [...msgs, newUserMsg]);
 
-    const responseText = await this.ollama.ask(this.selectedModel, userText.text);
+    const model = this.selectedModel();
+    const responseText = await this.ollama.ask(model, text, this.temperature());
     const assistantMsg: Message = { role: 'assistant', text: responseText };
-    this.messages.push(assistantMsg);
 
-    // salva nella memoria
-    this.memory.storeMessage(userText, assistantMsg);
-
-    return assistantMsg;
-  }
-
-  getHistory(): Message[] {
-    return this.messages;
+    this.messages.update(msgs => [...msgs, assistantMsg]);
+    this.memory.storeMessage(text, responseText);
   }
 
   clearHistory() {
-    this.messages = [];
     this.memory.clearHistory();
+    this.messages.set([]);
   }
 }

@@ -1,19 +1,16 @@
-.model-selector {
+.selector-container {
   padding: 10px;
 }
-
-.model-button button {
-  display: block;
+.btn-group button {
+  margin: 2px 0;
+  padding: 5px 8px;
   width: 100%;
-  margin-bottom: 5px;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: #fff;
+  border: 1px solid #bbb;
+  background: #fff;
   cursor: pointer;
+  border-radius: 4px;
 }
-
-.model-button button.active {
-  background-color: #dce6ff;
-  border-color: #7aa6ff;
+.btn-group button.active {
+  background: #dce6ff;
+  border-color: #7a9eff;
 }

@@ -1,6 +1,6 @@
-<h3>Modelli</h3>
-<button *ngFor="let model of models"
-        (click)="selectModel(model)"
-        [class.active]="model === selectedModel">
-  {{ model }}
+<h3>Modelli disponibili</h3>
+<button *ngFor="let m of models"
+        (click)="select(m)"
+        [class.active]="m === selectedModel">
+  {{ m }}
 </button>

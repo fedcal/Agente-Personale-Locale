@@ -1,28 +1,29 @@
-<div class="layout">
-  <div class="sidebar">
-    <h3>Modelli</h3>
-    <button *ngFor="let model of models" (click)="selectModel(model)" [class.active]="model === selectedModel">
-      {{ model }}
-    </button>
-  </div>
+<div class="app-container">
+  <!-- Header -->
+  <app-agent-ui title="Agente Personale"></app-agent-ui>
 
-  <div class="chat">
-    <div class="messages">
-      <div *ngFor="let msg of messages" [class.user]="msg.role === 'user'">
-        <b>{{ msg.role === 'user' ? 'Tu' : 'Agente' }}:</b> {{ msg.text }}
-      </div>
+  <div class="main-layout">
+    <!-- Sidebar dei modelli -->
+    <app-sidebar
+      [models]="allModels"
+      [selectedModel]="selectedModel"
+      [onModelSelect]="selectModel.bind(this)">
+    </app-sidebar>
+
+    <div class="content-area">
+      <!-- Selettore modelli -->
+      <app-model-selector
+        [models]="allModels"
+        [selectedModel]="selectedModel"
+        [onSelectModel]="selectModel.bind(this)">
+      </app-model-selector>
+
+      <!-- Chat -->
+      <app-chat
+        [messages]="messages"
+        [userInput]="''"
+        [onSend]="sendMessage.bind(this)">
+      </app-chat>
     </div>
-    <input [(ngModel)]="userInput" placeholder="Scrivi un messaggio..." />
-    <button (click)="send()">Invia</button>
-  </div>
-
-  <div class="tools">
-    <h3>Impostazioni</h3>
-    <label>Temperatura: {{ temperature }}</label>
-    <input type="range" min="0" max="1" step="0.1" [(ngModel)]="temperature" />
   </div>
 </div>
-
-
-
-<router-outlet />

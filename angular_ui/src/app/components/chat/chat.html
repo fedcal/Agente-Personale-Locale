@@ -1,7 +1,12 @@
-<div class="messages">
-  <div *ngFor="let msg of messages" [class.user]="msg.role === 'user'">
-    <b>{{ msg.role === 'user' ? 'Tu' : 'Agente' }}:</b> {{ msg.text }}
+<div class="chat-window">
+  <div class="messages">
+    <div *ngFor="let msg of messages" [class.user]="msg.role === 'user'">
+      <strong>{{ msg.role === 'user' ? 'Tu:' : 'Agente:' }}</strong> {{ msg.text }}
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input [(ngModel)]="userInput" placeholder="Scrivi un messaggio..." />
+    <button (click)="send()">Invia</button>
   </div>
 </div>
-<input [(ngModel)]="userInput" placeholder="Scrivi un messaggio..." />
-<button (click)="onSend()">Invia</button>

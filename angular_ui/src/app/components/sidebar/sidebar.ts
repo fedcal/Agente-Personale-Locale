@@ -3,16 +3,17 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.css',
+  styleUrls: ['./sidebar.css']
 })
 export class Sidebar {
   @Input() models: string[] = [];
-  @Input() selectedModel: string = '';
-  @Input() onSelect!: (model: string) => void;
+  @Input() selectedModel = '';
+  @Input() onModelSelect!: (model: string) => void;
 
-  selectModel(model: string) {
-    this.onSelect?.(model);
+  select(model: string) {
+    this.onModelSelect(model);
   }
 }
