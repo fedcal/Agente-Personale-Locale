@@ -1,1 +1,25 @@
-<p>home works!</p>
+<div class="home-container">
+  <app-agent-ui title="Benvenuto nell'Agente Personale"></app-agent-ui>
+
+  <div class="main-layout">
+    <app-sidebar
+      [models]="allModels"
+      [selectedModel]="selectedModel"
+      [onModelSelect]="selectModel.bind(this)">
+    </app-sidebar>
+
+    <div class="content-area">
+      <app-model-selector
+        [models]="allModels"
+        [selectedModel]="selectedModel"
+        [onSelectModel]="selectModel.bind(this)">
+      </app-model-selector>
+
+      <app-chat
+        [messages]="messages"
+        [userInput]="''"
+        [onSend]="sendMessage.bind(this)">
+      </app-chat>
+    </div>
+  </div>
+</div>
