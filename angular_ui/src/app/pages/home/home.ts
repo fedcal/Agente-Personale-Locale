@@ -5,6 +5,7 @@ import { AgentUi } from '../../components/agent-ui/agent-ui';
 import { Sidebar } from '../../components/sidebar/sidebar';
 import { Chat } from '../../components/chat/chat';
 import { ModelSelector } from '../../components/model-selector/model-selector';
+import { ChatSessions } from '../../components/chat-sessions/chat-sessions';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     AgentUi,
     Sidebar,
     Chat,
-    ModelSelector
+    ModelSelector,
+    ChatSessions
   ],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
@@ -46,5 +48,17 @@ export class HomePage {
 
   selectModel(model: string) {
     this.agent.selectModel(model);
+  }
+
+  get sessionItems() {
+    return this.agent.getSessions();
+  }
+
+  newSession() {
+    this.agent.newSession();
+  }
+
+  selectSession(id: string) {
+    this.agent.selectSession(id);
   }
 }

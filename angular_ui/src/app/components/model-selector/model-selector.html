@@ -4,8 +4,8 @@
     <div class="hint">Seleziona un modello Ollama disponibile</div>
   </div>
   <select id="model-select" [ngModel]="selectedModel" (ngModelChange)="select($event)">
-    <option *ngFor="let m of models" [value]="m">{{ m }}</option>
-    <option value="" disabled *ngIf="!models?.length">Nessun modello rilevato</option>
+    <option *ngFor="let m of models ?? []" [value]="m">{{ m }}</option>
+    <option value="" disabled *ngIf="!(models?.length)">Nessun modello rilevato</option>
   </select>
-  <div class="muted" *ngIf="!models?.length">Avvia Ollama e scarica almeno un modello.</div>
+  <div class="muted" *ngIf="!(models?.length)">Avvia Ollama e scarica almeno un modello.</div>
 </div>

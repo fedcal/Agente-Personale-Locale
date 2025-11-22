@@ -15,11 +15,12 @@ class OllamaService:
         self.base_url = base_url.rstrip("/")
 
     def generate(self, prompt: str, model: str, temperature: float = 0.7) -> str:
-        payload = {"model": model, "prompt": prompt, "temperature": temperature}
+        payload = {"model": model, "prompt": prompt, "temperature": temperature, "stream": False}
         try:
             resp = requests.post(f"{self.base_url}/generate", json=payload, timeout=120)
             resp.raise_for_status()
             data = resp.json()
+            # Ollama può restituire {response: "..."} o {text: "..."} o un blob streamless
             return data.get("response") or data.get("text") or resp.text
         except Exception as exc:
             log.error("Errore chiamata Ollama: %s", exc)

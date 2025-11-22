@@ -33,6 +33,9 @@ class AgentCore:
         prompt = self._build_prompt(message, history, relevant)
 
         chosen_model = model or self.default_model
+        if "embed" in chosen_model:
+            log.info("[CHAT] Modello embedding richiesto, uso fallback reasoning")
+            chosen_model = self.default_model
         log.info("[CHAT] Modello=%s | Utente='%s'", chosen_model, message[:80])
         try:
             reply = self.ollama.generate(prompt, model=chosen_model, temperature=temperature)

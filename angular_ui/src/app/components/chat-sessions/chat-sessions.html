@@ -1,0 +1,14 @@
+<div class="sessions">
+  <div class="header">
+    <div class="title">Chat</div>
+    <button class="add" (click)="add()">＋</button>
+  </div>
+  <div class="list">
+    <button *ngFor="let s of sessions"
+            class="session"
+            [class.active]="s.active"
+            (click)="select(s.id)">
+      {{ s.title }}
+    </button>
+  </div>
+</div>

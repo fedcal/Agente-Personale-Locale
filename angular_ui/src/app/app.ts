@@ -7,6 +7,7 @@ import { Sidebar } from './components/sidebar/sidebar';
 import { Chat } from './components/chat/chat';
 import { ModelSelector } from './components/model-selector/model-selector';
 import { AgentUi} from './components/agent-ui/agent-ui';
+import { ChatSessions } from './components/chat-sessions/chat-sessions';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ import { AgentUi} from './components/agent-ui/agent-ui';
     Sidebar,
     Chat,
     ModelSelector,
-    AgentUi
+    AgentUi,
+    ChatSessions
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
@@ -47,5 +49,17 @@ export class App {
 
   selectModel(model: string) {
     this.agent.selectModel(model);
+  }
+
+  get sessionItems() {
+    return this.agent.getSessions();
+  }
+
+  newSession() {
+    this.agent.newSession();
+  }
+
+  selectSession(id: string) {
+    this.agent.selectSession(id);
   }
 }

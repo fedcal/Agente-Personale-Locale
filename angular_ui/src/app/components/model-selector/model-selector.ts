@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./model-selector.css']
 })
 export class ModelSelector {
-  @Input() models: string[] = [];
+  @Input({ required: true }) models: string[] | null = null;
   @Input() selectedModel = '';
   @Input() onSelectModel!: (model: string) => void;
 

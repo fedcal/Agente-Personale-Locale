@@ -2,19 +2,27 @@
   <app-agent-ui title="Agente Personale"></app-agent-ui>
 
   <div class="main-layout">
-    <app-sidebar
-      [models]="models"
-      [selectedModel]="selectedModel"
-      [onModelSelect]="selectModel.bind(this)">
-    </app-sidebar>
+    <div class="left-panel">
+      <app-sidebar
+        [models]="models"
+        [selectedModel]="selectedModel"
+        [onModelSelect]="selectModel.bind(this)">
+      </app-sidebar>
+
+      <app-model-selector
+        [models]="models"
+        [selectedModel]="selectedModel"
+        [onSelectModel]="selectModel.bind(this)">
+      </app-model-selector>
+
+      <app-chat-sessions
+        [sessions]="sessionItems"
+        [onSelect]="selectSession.bind(this)"
+        [onNew]="newSession.bind(this)">
+      </app-chat-sessions>
+    </div>
 
     <div class="content-area">
-    <app-model-selector
-      [models]="models"
-      [selectedModel]="selectedModel"
-      [onSelectModel]="selectModel.bind(this)">
-    </app-model-selector>
-
       <app-chat
         [messages]="messages"
         [userInput]="''"

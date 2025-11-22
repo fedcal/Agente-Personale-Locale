@@ -6,6 +6,7 @@ import { ModelSelector } from '../../components/model-selector/model-selector';
 import { Sidebar } from '../../components/sidebar/sidebar';
 import { AgentUi } from '../../components/agent-ui/agent-ui';
 import { FormsModule } from '@angular/forms';
+import { ChatSessions } from '../../components/chat-sessions/chat-sessions';
 
 @Component({
   selector: 'app-agent',
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     AgentUi,
     Sidebar,
     Chat,
-    ModelSelector
+    ModelSelector,
+    ChatSessions
   ],
   templateUrl: './agent.html',
   styleUrls: ['./agent.css']
@@ -50,5 +52,17 @@ export class AgentPage {
 
   clearHistory() {
     this.agent.clearHistory();
+  }
+
+  get sessionItems() {
+    return this.agent.getSessions();
+  }
+
+  newSession() {
+    this.agent.newSession();
+  }
+
+  selectSession(id: string) {
+    this.agent.selectSession(id);
   }
 }

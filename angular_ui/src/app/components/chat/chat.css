@@ -16,6 +16,20 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) rgba(255,255,255,0.06);
+  max-height: calc(100vh - 260px);
+}
+.messages::-webkit-scrollbar {
+  width: 8px;
+}
+.messages::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 8px;
+}
+.messages::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
 }
 .placeholder {
   flex: 1;
