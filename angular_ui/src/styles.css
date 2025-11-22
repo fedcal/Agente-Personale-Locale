@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #0f1729;
+  --card: rgba(255, 255, 255, 0.06);
+  --card-strong: rgba(255, 255, 255, 0.12);
+  --text: #f5f7fb;
+  --muted: #9eb2d0;
+  --accent: #7dd3fc;
+  --accent-strong: #22d3ee;
+  --border: rgba(255, 255, 255, 0.08);
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.1), transparent 25%),
+              radial-gradient(circle at 80% 10%, rgba(125, 211, 252, 0.15), transparent 28%),
+              linear-gradient(135deg, #0b1221 0%, #0f1729 50%, #0b1221 100%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent);
+}

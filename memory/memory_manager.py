@@ -2,8 +2,12 @@ import json
 import time
 import sqlite3
 from pathlib import Path
-from chromadb import Client
-from chromadb.config import Settings
+try:
+    from chromadb import Client
+    from chromadb.config import Settings
+except Exception:
+    Client = None
+    Settings = None
 
 
 class MemoryManager:
@@ -30,14 +34,19 @@ class MemoryManager:
 
         # ---------------- LONG TERM (SQLITE) ----------------
         self.db_path = Path(base_path) / "long_term.db"
-        self.conn = sqlite3.connect(self.db_path)
+        self.conn = sqlite3.connect(self.db_path, check_same_thread=False)
         self._init_long_term_db()
 
         # ---------------- VECTOR MEMORY (CHROMA) ----------------
-        self.chroma_client = Client(Settings(chroma_db_impl="duckdb+parquet",
-                                             persist_directory=str(Path(base_path) / "chroma")))
-
-        self.vector_collection = self.chroma_client.get_or_create_collection("memory_vectors")
+        self.vector_collection = None
+        if Client and Settings:
+            try:
+                self.chroma_client = Client(Settings(chroma_db_impl="duckdb+parquet",
+                                                     persist_directory=str(Path(base_path) / "chroma")))
+                self.vector_collection = self.chroma_client.get_or_create_collection("memory_vectors")
+            except Exception:
+                # Config Chroma non compatibile o non inizializzabile: disattiva vector memory
+                self.vector_collection = None
 
     # ---------------- LONG TERM DB SETUP ----------------
     def _init_long_term_db(self):
@@ -106,10 +115,11 @@ class MemoryManager:
     # ---------------- VECTOR MEMORY ----------------
     def _add_vector(self, text):
         import uuid
-        self.vector_collection.add(
-            documents=[text],
-            ids=[str(uuid.uuid4())]
-        )
+        if self.vector_collection:
+            self.vector_collection.add(
+                documents=[text],
+                ids=[str(uuid.uuid4())]
+            )
 
     # ============================================================
     # RECUPERO MEMORIE RILEVANTI
@@ -137,13 +147,14 @@ class MemoryManager:
         results.extend([row[0] for row in cur.fetchall()])
 
         # ---- vector ----
-        vector_results = self.vector_collection.query(
-            query_texts=[query],
-            n_results=limit
-        )
+        if self.vector_collection:
+            vector_results = self.vector_collection.query(
+                query_texts=[query],
+                n_results=limit
+            )
 
-        if vector_results and "documents" in vector_results:
-            results.extend(vector_results["documents"][0])
+            if vector_results and "documents" in vector_results:
+                results.extend(vector_results["documents"][0])
 
         return list(dict.fromkeys(results))  # remove duplicates
 

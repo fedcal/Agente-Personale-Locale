@@ -1,9 +1,9 @@
 # config.json
 CONFIG = {
     "models": {
-        "code": "qwen2.5-coder",      # modello per coding
-        "reasoning": "llama3.1",      # modello per reasoning e agent
-        "embed": "nomic-embed-text"   # modello per RAG / embeddings
+        "code": "qwen2.5-coder:latest",      # modello per coding
+        "reasoning": "llama3.1:latest",      # modello per reasoning e agent
+        "embed": "nomic-embed-text:latest"   # modello per RAG / embeddings
     },
     "allowed_paths": [
         "~/projects",

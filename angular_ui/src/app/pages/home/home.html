@@ -3,14 +3,14 @@
 
   <div class="main-layout">
     <app-sidebar
-      [models]="allModels"
+      [models]="models"
       [selectedModel]="selectedModel"
       [onModelSelect]="selectModel.bind(this)">
     </app-sidebar>
 
     <div class="content-area">
       <app-model-selector
-        [models]="allModels"
+        [models]="models"
         [selectedModel]="selectedModel"
         [onSelectModel]="selectModel.bind(this)">
       </app-model-selector>

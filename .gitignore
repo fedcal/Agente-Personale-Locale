@@ -1,3 +1,39 @@
 .venv
+venv/
 .env
-venv
+.env.*
+
+# IDE / editor
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+build/
+dist/
+logs/
+*.log
+
+# Node / Angular
+angular_ui/node_modules/
+angular_ui/dist/
+angular_ui/.angular/
+angular_ui/.cache/
+angular_ui/.env
+angular_ui/.env.*
+angular_ui/npm-debug.log*
+angular_ui/yarn-debug.log*
+angular_ui/yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local data/config
+data/config.json
+data/credentials.json
+persist/

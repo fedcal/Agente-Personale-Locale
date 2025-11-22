@@ -3,17 +3,17 @@
 
   <div class="main-layout">
     <app-sidebar
-      [models]="allModels"
+      [models]="models"
       [selectedModel]="selectedModel"
       [onModelSelect]="selectModel.bind(this)">
     </app-sidebar>
 
     <div class="content-area">
-      <app-model-selector
-        [models]="allModels"
-        [selectedModel]="selectedModel"
-        [onSelectModel]="selectModel.bind(this)">
-      </app-model-selector>
+    <app-model-selector
+      [models]="models"
+      [selectedModel]="selectedModel"
+      [onSelectModel]="selectModel.bind(this)">
+    </app-model-selector>
 
       <app-chat
         [messages]="messages"

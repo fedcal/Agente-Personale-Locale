@@ -1,16 +1,33 @@
 .selector-container {
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 6px 0 14px;
 }
-.btn-group button {
-  margin: 2px 0;
-  padding: 5px 8px;
-  width: 100%;
-  border: 1px solid #bbb;
-  background: #fff;
-  cursor: pointer;
-  border-radius: 4px;
+.headline {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
-.btn-group button.active {
-  background: #dce6ff;
-  border-color: #7a9eff;
+.title {
+  color: var(--text);
+  font-weight: 600;
+}
+.hint, .muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+select {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  appearance: none;
+}
+label {
+  color: var(--muted);
+  font-size: 0.95rem;
 }

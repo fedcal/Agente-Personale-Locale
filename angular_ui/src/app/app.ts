@@ -25,7 +25,9 @@ import { AgentUi} from './components/agent-ui/agent-ui';
 export class App {
   private agent = inject(Agent);
 
-  allModels = ['llama3', 'mistral', 'codellama'];
+  get models() {
+    return this.agent.models();
+  }
 
   get messages() {
     return this.agent.messages();

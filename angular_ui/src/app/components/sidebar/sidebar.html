@@ -1,6 +1,8 @@
-<h3>Modelli disponibili</h3>
-<button *ngFor="let m of models"
+<div class="sidebar-title">Modelli disponibili</div>
+<button class="model-btn"
+        *ngFor="let m of models"
         (click)="select(m)"
         [class.active]="m === selectedModel">
-  {{ m }}
+  <span>{{ m }}</span>
+  <span *ngIf="m === selectedModel">●</span>
 </button>

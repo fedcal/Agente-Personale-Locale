@@ -1,8 +1,6 @@
 from langchain_community.embeddings import OllamaEmbeddings
-from langchain.vectorstores import Chroma
-from langchain.chains.question_answering import load_qa_chain
-from langchain import PromptTemplate
-from langchain.chat_models import ChatOpenAI # optional; we'll use Ollama LLM for QA
+from langchain_community.vectorstores import Chroma
+from langchain_core.prompts import PromptTemplate
 
 CHROMA_PERSIST_DIR = "persist/chroma"
 EMBED_MODEL = "nomic-embed-text"
