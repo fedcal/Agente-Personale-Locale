@@ -1,4 +1,4 @@
-# config.py
+# config.json
 CONFIG = {
     "models": {
         "code": "qwen2.5-coder",      # modello per coding
@@ -12,4 +12,14 @@ CONFIG = {
     "allowed_shell_cmds": [
         "ls", "dir", "git status", "git pull", "python -m pytest"
     ]
+}
+
+MEMORY_CONFIG = {
+    "short_term_limit": 20,
+    "sqlite_path": "data/memory.db",
+    "file_memory_path": "data/files_memory/",
+    "chroma_path": "data/embeddings/",
+    "use_notion": True,
+    "notion_token": "",
+    "notion_database_id": ""
 }

@@ -5,7 +5,7 @@ from config import CONFIG
 from tools.file_ops import read_file, write_file
 from tools.code_edit import apply_patch
 from tools.system_tools import run_shell, list_dir
-from tools.memory import save_memory, load_memory
+
 
 def build_agent():
     reasoning_model = ChatOllama(model=CONFIG["models"]["reasoning"], temperature=0.2)
@@ -16,8 +16,6 @@ def build_agent():
         Tool(name="apply_patch", func=apply_patch, description="Modifica minima del codice."),
         Tool(name="run_shell", func=run_shell, description="Esegue un comando shell."),
         Tool(name="list_dir", func=list_dir, description="Lista i file in una directory."),
-        Tool(name="save_memory", func=save_memory, description="Memorizza un'informazione."),
-        Tool(name="load_memory", func=load_memory, description="Carica la memoria.")
     ]
 
     agent = initialize_agent(
