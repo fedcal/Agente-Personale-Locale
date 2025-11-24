@@ -26,6 +26,7 @@ export class Agent {
   sessions: WritableSignal<ChatSession[]> = signal([]);
   currentSessionId: WritableSignal<string> = signal('');
   ready: WritableSignal<boolean> = signal(false);
+  commands: WritableSignal<{ name: string; description: string; params: string }[]> = signal([]);
 
   constructor() {
     this.bootstrap();
@@ -36,6 +37,8 @@ export class Agent {
       this.ollama.history(),
       this.ollama.models()
     ]);
+    const cmdList = await this.ollama.commands();
+    this.commands.set(cmdList);
 
     const stored = this.loadSessions();
     if (stored.sessions.length) {
@@ -89,6 +92,13 @@ export class Agent {
     }
   }
 
+  renameSession(id: string, title: string) {
+    this.sessions.update(list =>
+      list.map(s => (s.id === id ? { ...s, title } : s))
+    );
+    this.saveSessions();
+  }
+
   selectModel(model: string) {
     const m = model.trim();
     if (!m) return;
@@ -112,6 +122,10 @@ export class Agent {
   async clearHistory() {
     await this.ollama.clearHistory();
     this.updateCurrentSession([]);
+  }
+
+  getCommands() {
+    return this.commands();
   }
 
   private updateCurrentSession(msgs: Message[]) {

@@ -1,0 +1,10 @@
+<div class="hint-panel" *ngIf="visible && commands.length">
+  <div class="hint-title">Comandi disponibili</div>
+  <div class="hint-list">
+    <div class="hint-item" *ngFor="let c of commands" (click)="select(c.name + ' ')">
+      <div class="cmd">{{ c.name }}</div>
+      <div class="desc">{{ c.description }}</div>
+      <div class="params" *ngIf="c.params">{{ c.params }}</div>
+    </div>
+  </div>
+</div>

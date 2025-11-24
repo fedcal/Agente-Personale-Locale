@@ -1,31 +1,24 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Router, RouterOutlet } from '@angular/router';
 
 import { Agent } from './core/agent';
-import { Sidebar } from './components/sidebar/sidebar';
-import { Chat } from './components/chat/chat';
-import { ModelSelector } from './components/model-selector/model-selector';
 import { AgentUi} from './components/agent-ui/agent-ui';
-import { ChatSessions } from './components/chat-sessions/chat-sessions';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    Sidebar,
-    Chat,
-    ModelSelector,
     AgentUi,
-    ChatSessions
+    RouterOutlet
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
 export class App {
   private agent = inject(Agent);
+  private router = inject(Router);
 
   get models() {
     return this.agent.models();
@@ -41,6 +34,18 @@ export class App {
 
   get temperature() {
     return this.agent.temperature();
+  }
+
+  get commands() {
+    return this.agent.getCommands();
+  }
+
+  toggleConfig() {
+    this.router.navigate(['/sites']);
+  }
+
+  goHome() {
+    this.router.navigate(['/']);
   }
 
   sendMessage(userInput: string) {
@@ -61,5 +66,9 @@ export class App {
 
   selectSession(id: string) {
     this.agent.selectSession(id);
+  }
+
+  renameSession(id: string, title: string) {
+    this.agent.renameSession(id, title);
   }
 }

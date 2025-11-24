@@ -8,7 +8,12 @@
             class="session"
             [class.active]="s.active"
             (click)="select(s.id)">
-      {{ s.title }}
+      <span>{{ s.title }}</span>
+      <span class="rename" (click)="$event.stopPropagation(); s.editing = !s.editing">✎</span>
+      <div *ngIf="s.editing" class="rename-row">
+        <input [(ngModel)]="s.title" (keyup.enter)="rename(s.id, s.title); s.editing=false" />
+        <button (click)="rename(s.id, s.title); s.editing=false">OK</button>
+      </div>
     </button>
   </div>
 </div>

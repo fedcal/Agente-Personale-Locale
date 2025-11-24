@@ -11,7 +11,15 @@ CONFIG = {
     ],
     "allowed_shell_cmds": [
         "ls", "dir", "git status", "git pull", "python -m pytest"
-    ]
+    ],
+    "secrets": {
+        "telegram_token": "",
+        "whatsapp_token": "",
+        "gmail_user": "",
+        "gmail_password": "",
+        "notion_token": "",
+        "notion_db_id": ""
+    }
 }
 
 MEMORY_CONFIG = {

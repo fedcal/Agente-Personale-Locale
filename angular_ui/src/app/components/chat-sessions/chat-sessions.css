@@ -35,8 +35,39 @@
   color: var(--text);
   text-align: left;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 .session.active {
   border-color: var(--accent);
   background: linear-gradient(135deg, #22d3ee20, #7dd3fc20);
+}
+.rename {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.rename-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px;
+  width: 100%;
+  margin-top: 6px;
+}
+.rename-row input {
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+}
+.rename-row button {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #22d3ee, #7dd3fc);
+  color: #0b1221;
+  font-weight: 600;
+  cursor: pointer;
 }

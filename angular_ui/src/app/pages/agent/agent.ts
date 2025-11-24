@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Agent } from '../../core/agent';
 import { Chat } from '../../components/chat/chat';
@@ -23,7 +23,7 @@ import { ChatSessions } from '../../components/chat-sessions/chat-sessions';
   templateUrl: './agent.html',
   styleUrls: ['./agent.css']
 })
-export class AgentPage {
+export class AgentPage implements OnInit {
   private agent = inject(Agent);
 
   get models() {
@@ -64,5 +64,17 @@ export class AgentPage {
 
   selectSession(id: string) {
     this.agent.selectSession(id);
+  }
+
+  renameSession(id: string, title: string) {
+    this.agent.renameSession(id, title);
+  }
+
+  get commands() {
+    return this.agent.getCommands();
+  }
+
+  async ngOnInit() {
+    // eventual init
   }
 }

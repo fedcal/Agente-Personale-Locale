@@ -1,3 +1,11 @@
 <div class="agent-ui">
-  <h1>{{ title }}</h1>
+  <button class="brand" (click)="goHome.emit()" aria-label="Home">
+    <lucide-icon name="Home" size="20"></lucide-icon>
+    <span>{{ title }}</span>
+  </button>
+  <div class="nav-actions">
+    <button class="icon-btn" (click)="openConfig.emit()" aria-label="Impostazioni">
+      <lucide-icon name="Settings" size="20"></lucide-icon>
+    </button>
+  </div>
 </div>

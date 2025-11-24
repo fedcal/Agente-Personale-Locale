@@ -1,13 +1,45 @@
 .agent-ui {
-  padding: 20px 18px;
-  background: linear-gradient(135deg, rgba(34, 211, 238, 0.12), rgba(125, 211, 252, 0.12));
+  padding: 16px 18px;
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.16), rgba(125, 211, 252, 0.16));
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
   border-radius: 0 0 var(--radius) var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.agent-ui h1 {
+.brand {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: var(--text);
   letter-spacing: 0.4px;
+  font-weight: 700;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-actions {
+  display: flex;
+  gap: 8px;
+}
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+.icon-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
 }

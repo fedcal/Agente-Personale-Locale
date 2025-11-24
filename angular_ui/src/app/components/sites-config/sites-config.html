@@ -1,0 +1,48 @@
+<div class="sites-card">
+  <div class="header">
+    <div>
+      <div class="title">Siti per scraping</div>
+      <div class="subtitle">Gestisci gli URL da usare nelle ricerche</div>
+    </div>
+    <button class="refresh" (click)="reload()" [disabled]="loading">
+      <span *ngIf="!loading">Ricarica</span>
+      <span *ngIf="loading">Caricamento...</span>
+    </button>
+  </div>
+
+  <div class="add-form">
+    <input [(ngModel)]="url" placeholder="https://..." />
+    <input [(ngModel)]="note" placeholder="Nota (opzionale)" />
+    <button (click)="add()">Aggiungi</button>
+  </div>
+
+  <div class="list" *ngIf="sites?.length; else empty">
+    <div class="item" *ngFor="let s of sites">
+      <div class="info" *ngIf="editId !== s.id">
+        <a class="url" [href]="s.url" target="_blank" rel="noopener noreferrer">{{ s.url }}</a>
+        <div class="note" *ngIf="s.note">{{ s.note }}</div>
+      </div>
+      <div class="edit" *ngIf="editId === s.id">
+        <input [(ngModel)]="editUrl" placeholder="https://..." />
+        <input [(ngModel)]="editNote" placeholder="Nota (opzionale)" />
+        <div class="edit-actions">
+          <button class="save" (click)="saveEdit()">Salva</button>
+          <button class="cancel" (click)="cancelEdit()">Annulla</button>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="edit-btn" *ngIf="editId !== s.id" (click)="startEdit(s)">Modifica</button>
+        <button class="del" (click)="remove(s.id)">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="error" *ngIf="error">{{ error }}</div>
+  <div class="hint" *ngIf="!error && apiBase">
+    Endpoint API: {{ apiBase }}
+  </div>
+
+  <ng-template #empty>
+    <div class="empty">Nessun sito salvato.</div>
+  </ng-template>
+</div>

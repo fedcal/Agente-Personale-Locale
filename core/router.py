@@ -17,4 +17,6 @@ class CommandRouter:
             return self.agent.system_stats()
         if text.startswith("/rag "):
             return {"answer": self.agent.rag_search(text.replace("/rag ", "", 1))}
+        if text.startswith("/news"):
+            return self.agent.chat(text)
         return self.agent.chat(text)

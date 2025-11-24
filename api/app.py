@@ -6,6 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from core.agent_builder import build_agent
+from tools.commands_loader import list_commands, seed_defaults
+from tools.sites_store import add_site, list_sites, delete_site, update_site
 
 agent = build_agent()
 app = FastAPI(title="ARES Agent API")
@@ -48,6 +50,35 @@ def health():
 @app.get("/models", response_model=List[str])
 def models():
     return agent.models()
+
+@app.get("/commands")
+def commands():
+    seed_defaults()
+    return list_commands()
+
+class SiteReq(BaseModel):
+    url: str
+    note: str = ""
+
+@app.get("/sites")
+def sites():
+    return list_sites()
+
+@app.post("/sites")
+def add_new_site(req: SiteReq):
+    return add_site(req.url, req.note)
+
+@app.delete("/sites/{site_id}")
+def remove_site(site_id: int):
+    ok = delete_site(site_id)
+    return {"ok": ok}
+
+@app.put("/sites/{site_id}")
+def edit_site(site_id: int, req: SiteReq):
+    updated = update_site(site_id, req.url, req.note)
+    if not updated:
+        raise HTTPException(status_code=400, detail="Impossibile aggiornare il sito (non trovato o URL duplicato).")
+    return updated
 
 
 @app.post("/chat", response_model=ChatRes)

@@ -5,11 +5,11 @@ from typing import List, Dict
 
 class NewsScraper:
     """
-    Estrattore molto semplice di titoli da una pagina di news.
-    Per siti diversi potrebbe essere necessario adattare il selettore CSS.
+    Estrattore di titoli da Google News (ricerca).
     """
 
-    def fetch(self, url: str, limit: int = 5) -> List[Dict[str, str]]:
+    def search(self, query: str, limit: int = 5) -> List[Dict[str, str]]:
+        url = f"https://news.google.com/search?q={requests.utils.quote(query)}&hl=it&gl=IT&ceid=IT:it"
         try:
             resp = requests.get(url, timeout=10)
             resp.raise_for_status()
@@ -18,11 +18,12 @@ class NewsScraper:
 
         soup = BeautifulSoup(resp.text, "html.parser")
         articles = []
-        for a in soup.select("a")[: limit * 3]:
+        for a in soup.select("a.DY5T1d")[: limit]:
             title = a.get_text(strip=True)
             href = a.get("href")
             if title and href:
-                articles.append({"title": title, "link": href})
-            if len(articles) >= limit:
-                break
+                link = href
+                if link.startswith("./"):
+                    link = "https://news.google.com/" + link[2:]
+                articles.append({"title": title, "link": link})
         return articles

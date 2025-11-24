@@ -6,6 +6,7 @@ from service.ollama_service import OllamaService
 from service.memory_service import MemoryService
 from service.file_manager import FileManager
 from service.system_service import SystemService
+from service.news_scraper import NewsScraper
 from rag.search import semantic_search
 
 log = get_logger(__name__)
@@ -22,11 +23,20 @@ class AgentCore:
         self.memory = MemoryService()
         self.files = FileManager()
         self.system = SystemService()
+        self.news = NewsScraper()
         self.default_model = cfg["models"]["reasoning"]
 
     def chat(self, message: str, model: str = None, temperature: float = 0.7) -> Dict[str, Any]:
         if not message.strip():
             return {"response": "Messaggio vuoto."}
+
+        if message.startswith("/news"):
+            query = message.replace("/news", "", 1).strip()
+            if not query:
+                return {"response": "Usa /news <tema> per cercare notizie."}
+            items = self.news.search(query, limit=5)
+            formatted = "\n".join([f"- {it['title']} ({it['link']})" for it in items])
+            return {"response": f"Notizie su '{query}':\n{formatted}", "model": "news"}
 
         history = self.memory.history(limit=10)
         relevant = self.memory.memory_manager.get_relevant_memories(message, limit=3)

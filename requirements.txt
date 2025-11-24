@@ -8,3 +8,4 @@ apscheduler
 beautifulsoup4
 psutil
 python-telegram-bot
+python-dotenv

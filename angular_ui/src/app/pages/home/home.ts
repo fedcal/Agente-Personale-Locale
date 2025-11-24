@@ -7,6 +7,7 @@ import { Chat } from '../../components/chat/chat';
 import { ModelSelector } from '../../components/model-selector/model-selector';
 import { ChatSessions } from '../../components/chat-sessions/chat-sessions';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class HomePage {
   private agent = inject(Agent);
+  protected router = inject(Router);
 
   get models() {
     return this.agent.models();
@@ -60,5 +62,13 @@ export class HomePage {
 
   selectSession(id: string) {
     this.agent.selectSession(id);
+  }
+
+  renameSession(id: string, title: string) {
+    this.agent.renameSession(id, title);
+  }
+
+  get commands() {
+    return this.agent.getCommands();
   }
 }

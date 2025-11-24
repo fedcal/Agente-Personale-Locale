@@ -1,36 +1,4 @@
 <div class="app-container">
-  <!-- Header -->
-  <app-agent-ui title="Agente Personale"></app-agent-ui>
-
-  <div class="main-layout">
-    <!-- Colonna sinistra: modelli + sessioni -->
-    <div class="left-panel">
-      <app-sidebar
-        [models]="models"
-        [selectedModel]="selectedModel"
-        [onModelSelect]="selectModel.bind(this)">
-      </app-sidebar>
-
-      <app-model-selector
-        [models]="models"
-        [selectedModel]="selectedModel"
-        [onSelectModel]="selectModel.bind(this)">
-      </app-model-selector>
-
-      <app-chat-sessions
-        [sessions]="sessionItems"
-        [onSelect]="selectSession.bind(this)"
-        [onNew]="newSession.bind(this)">
-      </app-chat-sessions>
-    </div>
-
-    <div class="content-area">
-      <!-- Chat -->
-      <app-chat
-        [messages]="messages"
-        [userInput]="''"
-        [onSend]="sendMessage.bind(this)">
-      </app-chat>
-    </div>
-  </div>
+  <app-agent-ui title="Ares Agent" (openConfig)="toggleConfig()" (goHome)="goHome()"></app-agent-ui>
+  <router-outlet></router-outlet>
 </div>

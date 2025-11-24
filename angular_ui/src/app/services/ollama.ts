@@ -44,4 +44,12 @@ export class Ollama {
   async clearHistory(): Promise<void> {
     await firstValueFrom(this.http.delete(`${this.baseUrl}/memory`));
   }
+
+  async commands(): Promise<{ name: string; description: string; params: string }[]> {
+    try {
+      return await firstValueFrom(this.http.get<{ name: string; description: string; params: string }[]>(`${this.baseUrl}/commands`));
+    } catch {
+      return [];
+    }
+  }
 }

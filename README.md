@@ -19,6 +19,18 @@ Effetti:
 - API FastAPI su `http://127.0.0.1:8000`
 - Console interattiva nel terminale corrente (comandi: testo libero; `/files <q>` ricerca file; `/system` metriche; `/rag <q>` ricerca semantica; `exit` esce).
 
+### Variabili d'ambiente (.env)
+Compila `.env` (parti da `.env.example`) per token e credenziali:
+```
+TELEGRAM_TOKEN=
+WHATSAPP_TOKEN=
+GMAIL_USER=
+GMAIL_PASSWORD=
+NOTION_TOKEN=
+NOTION_DB_ID=
+```
+`utils/config_manager` carica .env e `data/config.json`; i servizi leggono i token da lì.
+
 ### Client CLI separato (via API)
 Con il server avviato:
 ```bash
@@ -46,6 +58,13 @@ npm install
 npm start
 ```
 L’app si connette al backend su `http://127.0.0.1:8000` e offre selezione modello, chat e pulizia cronologia.
+
+## Comandi (CLI / Web)
+| Comando | Descrizione | Parametri |
+|---------|-------------|-----------|
+| `/news <tema>` | Cerca e sintetizza notizie recenti sul tema indicato. | `<tema>`: testo libero (es. “tecnologia AI”). |
+
+I comandi sono memorizzati in `data/commands.db` e accessibili via `GET /commands`.
 
 ## Struttura progetto (sintesi)
 - `main.py` — avvio API e console

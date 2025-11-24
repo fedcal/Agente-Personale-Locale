@@ -1,6 +1,4 @@
 <div class="agent-container">
-  <app-agent-ui title="Agente Personale"></app-agent-ui>
-
   <div class="main-layout">
     <div class="left-panel">
       <app-sidebar
@@ -18,7 +16,8 @@
       <app-chat-sessions
         [sessions]="sessionItems"
         [onSelect]="selectSession.bind(this)"
-        [onNew]="newSession.bind(this)">
+        [onNew]="newSession.bind(this)"
+        [onRename]="renameSession.bind(this)">
       </app-chat-sessions>
     </div>
 
@@ -26,7 +25,8 @@
       <app-chat
         [messages]="messages"
         [userInput]="''"
-        [onSend]="sendMessage.bind(this)">
+        [onSend]="sendMessage.bind(this)"
+        [commands]="commands">
       </app-chat>
 
       <button class="clear-btn" (click)="clearHistory()">Cancella Cronologia</button>

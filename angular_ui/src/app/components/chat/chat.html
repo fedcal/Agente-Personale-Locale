@@ -1,8 +1,8 @@
 <div class="chat-window">
-  <div class="messages">
+  <div class="messages" #messagesContainer>
     <div *ngFor="let msg of messages" class="bubble" [class.user]="msg.role === 'user'" [class.assistant]="msg.role === 'assistant'">
       <div class="meta">{{ msg.role === 'user' ? 'Tu' : 'ARES' }}</div>
-      <div>{{ msg.text }}</div>
+      <div class="markdown" [innerHTML]="msg.text | markdown"></div>
     </div>
     <div *ngIf="!messages.length" class="placeholder">
       <div class="emoji">🤖</div>
@@ -17,20 +17,34 @@
   </div>
 
   <div class="status">
+    <span *ngIf="loading" class="spinner"></span>
     <span *ngIf="listening">🎙️ Ascolto in corso...</span>
-    <span *ngIf="!listening && hasSpeech">🎤 Usa il microfono per dettare</span>
-    <span *ngIf="!hasSpeech">Il tuo browser non supporta la dettatura</span>
+    <span *ngIf="!listening && hasSpeech && !loading">🎤 Usa il microfono per dettare</span>
+    <span *ngIf="!hasSpeech && !loading">Il tuo browser non supporta la dettatura</span>
   </div>
 
   <div class="input-area">
-    <input [(ngModel)]="userInput"
-           placeholder="Scrivi un messaggio o usa il microfono..."
-           (keyup.enter)="send()" />
-    <div class="actions">
-      <button class="ghost" [disabled]="!hasSpeech" [class.active]="listening" (click)="toggleVoice()">
-        {{ listening ? 'Stop' : '🎤' }}
-      </button>
-      <button (click)="send()">Invia</button>
+    <div class="input-stack">
+      <div class="command-overlay" *ngIf="showCommands">
+        <app-command-hint
+          [visible]="true"
+          [commands]="commands"
+          (onSelect)="pickCommand($event)">
+        </app-command-hint>
+      </div>
+
+      <div class="input-row">
+        <input [(ngModel)]="userInput"
+               placeholder="Scrivi un messaggio o usa il microfono..."
+               (keyup.enter)="send()"
+               (input)="onInputChange()" />
+        <div class="actions">
+          <button class="ghost" [disabled]="!hasSpeech" [class.active]="listening" (click)="toggleVoice()">
+            {{ listening ? 'Stop' : '🎤' }}
+          </button>
+          <button (click)="send()">Invia</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,0 +1,14 @@
+<div class="sites-page">
+  <div class="content">
+    <app-sites-config
+      [sites]="sites"
+      [loading]="loading"
+      [error]="error"
+      [apiBase]="apiBase"
+      (onAdd)="addSite($event.url, $event.note)"
+      (onDelete)="deleteSite($event)"
+      (onUpdate)="updateSite($event.id, $event.url, $event.note)"
+      (onReload)="load()">
+    </app-sites-config>
+  </div>
+</div>
